@@ -40,6 +40,7 @@ public class SecurityConfig {
 
         http
                 .cors(Customizer.withDefaults())
+                .httpBasic(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeRequests(authorizeRequests ->
                         authorizeRequests
@@ -71,12 +72,26 @@ public class SecurityConfig {
         return daoAuthenticationProvider;
     }
 
+//    @Bean
+//    public WebMvcConfigurer corsConfigurer() {
+//        return new WebMvcConfigurer() {
+//            @Override
+//            public void addCorsMappings(CorsRegistry registry) {
+//                registry.addMapping("/login").allowedOrigins("http://127.0.0.1:5173/login");
+//            }
+//        };
+//    }
+
     @Bean
     public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/login").allowedOrigins("http://127.0.0.1:5173/login");
+                registry.addMapping("/**")
+                        .allowedOrigins("http://127.0.0.1:5173")
+                        .allowedMethods("*")
+                        .allowedHeaders("*")
+                        .maxAge(30);
             }
         };
     }

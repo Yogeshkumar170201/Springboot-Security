@@ -4,12 +4,13 @@ import com.kref.K.Ref.entity.User;
 import com.kref.K.Ref.event.RegistrationEvent;
 import com.kref.K.Ref.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin("http://127.0.0.1:5173")
+@Slf4j
 public class UserController {
 
     @Autowired
@@ -23,6 +24,7 @@ public class UserController {
     @PostMapping("/register")
     public String registerUser(@RequestBody User user, final HttpServletRequest request){
         try {
+            log.info(user.getName());
             userService.registerUser(user);
             publisher.publishEvent(new RegistrationEvent(
                     user,
