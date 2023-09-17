@@ -9,6 +9,7 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@CrossOrigin("http://127.0.0.1:5173")
 public class UserController {
 
     @Autowired
